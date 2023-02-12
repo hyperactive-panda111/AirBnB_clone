@@ -1,21 +1,29 @@
 #!/usr/bin/python3
 """ Module for base model """
 
-
 import uuid
 from datetime import datetime
 
 
 class BaseModel():
-    """ Base class that other objects will inherit from. """
-    def __init__(self):
+    """ base model class """
+    def __init__(self, *args, **kwargs):
         """ class constructor for base model """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs:
+            kwargs['created_at'] = datetime.strftime('%Y-%m-%d %H:%M:%S')
+            kwargs['updated_at'] = datetime.strftime('%Y-%m-%d %H:%M:%S')
+
+            for key, value in kwargs.items():
+                if key != '__class__':
+                    setattr(self, key, value)
+
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
-        """returns a a string containing class name, id and class atrributes """
+        """returns a string """
         return '[{}] ({}) {}'.format(self.__class__.__name__,
                                      self.id, self.__dict__)
 
