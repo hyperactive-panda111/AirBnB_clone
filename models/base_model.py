@@ -10,8 +10,8 @@ class BaseModel():
     def __init__(self, *args, **kwargs):
         """ class constructor for base model """
         if kwargs:
-            kwargs['created_at'] = datetime.strftime('%Y-%m-%d %H:%M:%S')
-            kwargs['updated_at'] = datetime.strftime('%Y-%m-%d %H:%M:%S')
+            kwargs['created_at'] = datetime.strpftime('%Y-%m-%d %H:%M:%S')
+            kwargs['updated_at'] = datetime.strpftime('%Y-%m-%d %H:%M:%S')
 
             for key, value in kwargs.items():
                 if key != '__class__':
